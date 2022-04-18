@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>IGN</title>
+
+  </head>
+
+  <body onload="loadVideo()">
+    <video width="960" height="540" controls src="" id="video" onended="loadVideo()">
+    </video>
+    <h1 id="title">Title</h1>
+    <p id="description">Description</p>
+
+    <img src="" id="q2">
+    <p id="q2desc">Queue2</p>
+    <img src="" id="q3">
+    <p id="q3desc">Queue3</p>
+    <img src="" id="q4">
+    <p id="q4desc">Queue4</p>
+    <img src="" id="q5">
+    <p id="q5desc">Queue5</p>
+
+    <script crossorigin="anonymous">
+      var videocounter = 0;
+      var counter1 = 1;
+      var counter2 = 2;
+      var counter3 = 3;
+      var counter4 = 4;
+
+      async function loadVideo()
+      {
+        var response = await fetch("https://lit-garden-87242.herokuapp.com/https://ign-apis.herokuapp.com/videos?startIndex=30\u0026count=5");
+        var data = await response.json();
+        console.log(data);
+        var url = data.data[videocounter].assets[2].url;
+        var vtitle = data.data[videocounter].metadata.title;
+        var vdescrip = data.data[videocounter].metadata.description;
+        var video = document.getElementById('video');
+        document.getElementById('title').innerHTML = vtitle;
+        document.getElementById('description').innerHTML = vdescrip;
+        video.src = url;
+
+        var thumbnail1 = data.data[1].thumbnails[1].url;
+        console.log(thumbnail1);
+        var thumbnail2 = data.data[2].thumbnails[1].url;
+        console.log(thumbnail2);
+        var thumbnail3 = data.data[3].thumbnails[1].url;
+        console.log(thumbnail3);
+        var thumbnail4 = data.data[4].thumbnails[1].url;
+        console.log(thumbnail4);
+        var thumbnail5 = data.data[0].thumbnails[1].url;
+
+        var qtitle1 = data.data[1].metadata.title;
+        var qtitle2 = data.data[2].metadata.title;
+        var qtitle3 = data.data[3].metadata.title;
+        var qtitle4 = data.data[4].metadata.title;
+        var qtitle5 = data.data[0].metadata.title;
+
+        if(videocounter == 0)
+        {
+          document.getElementById('q2').src = thumbnail1;
+          document.getElementById('q3').src = thumbnail2;
+          document.getElementById('q4').src = thumbnail3;
+          document.getElementById('q5').src = thumbnail4;
+
+          document.getElementById('q2desc').innerHTML = qtitle1;
+          document.getElementById('q3desc').innerHTML = qtitle2;
+          document.getElementById('q4desc').innerHTML = qtitle3;
+          document.getElementById('q5desc').innerHTML = qtitle4;
+        }
+        else if (videocounter == 1) {
+          document.getElementById('q2').src = thumbnail2;
+          document.getElementById('q3').src = thumbnail3;
+          document.getElementById('q4').src = thumbnail4;
+          document.getElementById('q5').src = thumbnail5;
+
+          document.getElementById('q2desc').innerHTML = qtitle2;
+          document.getElementById('q3desc').innerHTML = qtitle3;
+          document.getElementById('q4desc').innerHTML = qtitle4;
+          document.getElementById('q5desc').innerHTML = qtitle5;
+        }
+        else if (videocounter == 2) {
+          document.getElementById('q2').src = thumbnail3;
+          document.getElementById('q3').src = thumbnail4;
+          document.getElementById('q4').src = thumbnail5;
+          document.getElementById('q5').src = thumbnail1;
+
+          document.getElementById('q2desc').innerHTML = qtitle3;
+          document.getElementById('q3desc').innerHTML = qtitle4;
+          document.getElementById('q4desc').innerHTML = qtitle5;
+          document.getElementById('q5desc').innerHTML = qtitle1;
+        }
+        else if (videocounter == 3) {
+          document.getElementById('q2').src = thumbnail4;
+          document.getElementById('q3').src = thumbnail5;
+          document.getElementById('q4').src = thumbnail1;
+          document.getElementById('q5').src = thumbnail2;
+
+          document.getElementById('q2desc').innerHTML = qtitle4;
+          document.getElementById('q3desc').innerHTML = qtitle5;
+          document.getElementById('q4desc').innerHTML = qtitle1;
+          document.getElementById('q5desc').innerHTML = qtitle2;
+        }
+        else if (videocounter == 4) {
+          document.getElementById('q2').src = thumbnail5;
+          document.getElementById('q3').src = thumbnail1;
+          document.getElementById('q4').src = thumbnail2;
+          document.getElementById('q5').src = thumbnail3;
+
+          document.getElementById('q2desc').innerHTML = qtitle5;
+          document.getElementById('q3desc').innerHTML = qtitle1;
+          document.getElementById('q4desc').innerHTML = qtitle2;
+          document.getElementById('q5desc').innerHTML = qtitle3;
+        }
+
+        if(videocounter > 0)
+        {
+          video.autoplay = true;
+        }
+        videocounter++;
+
+        console.log(videocounter)
+        console.log(url);
+      }
+    </script>
+
+  </body>
+</html>
