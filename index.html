@@ -2,25 +2,49 @@
 <html lang="en" dir="ltr">
 
   <head>
+    <style>
+    .video{
+      max-width: 950px;
+      float: left;
+      position: relative;
+      left: 200px;
+      top: 50px;
+      margin-right: 200px;
+    }
+    .queue{
+      float: right;
+      max-width: 300px;
+      position: relative;
+      right: 100px;
+      top: 50px;
+      margin-left: 200px;
+      margin-right: 400px;
+    }
+    </style>
+
     <meta charset="utf-8">
     <title>IGN</title>
 
   </head>
 
   <body onload="loadVideo()">
-    <video width="960" height="540" controls src="" id="video" onended="loadVideo()">
-    </video>
-    <h1 id="title">Title</h1>
-    <p id="description">Description</p>
+    <div class="video">
+      <video width="960" height="540" controls src="" id="video" onended="loadVideo()">
+      </video>
+      <h1 id="title">Title</h1>
+      <p id="description">Description</p>
+    </div>
 
-    <img src="" id="q2">
-    <p id="q2desc">Queue2</p>
-    <img src="" id="q3">
-    <p id="q3desc">Queue3</p>
-    <img src="" id="q4">
-    <p id="q4desc">Queue4</p>
-    <img src="" id="q5">
-    <p id="q5desc">Queue5</p>
+    <div class="queue">
+      <img src="" id="q2">
+      <p id="q2desc">Queue2</p>
+      <img src="" id="q3">
+      <p id="q3desc">Queue3</p>
+      <img src="" id="q4">
+      <p id="q4desc">Queue4</p>
+      <img src="" id="q5">
+      <p id="q5desc">Queue5</p>
+    </div>
 
     <script crossorigin="anonymous">
       var videocounter = 0;
@@ -42,15 +66,15 @@
         document.getElementById('description').innerHTML = vdescrip;
         video.src = url;
 
-        var thumbnail1 = data.data[1].thumbnails[1].url;
+        var thumbnail1 = data.data[1].thumbnails[0].url;
         console.log(thumbnail1);
-        var thumbnail2 = data.data[2].thumbnails[1].url;
+        var thumbnail2 = data.data[2].thumbnails[0].url;
         console.log(thumbnail2);
-        var thumbnail3 = data.data[3].thumbnails[1].url;
+        var thumbnail3 = data.data[3].thumbnails[0].url;
         console.log(thumbnail3);
-        var thumbnail4 = data.data[4].thumbnails[1].url;
+        var thumbnail4 = data.data[4].thumbnails[0].url;
         console.log(thumbnail4);
-        var thumbnail5 = data.data[0].thumbnails[1].url;
+        var thumbnail5 = data.data[0].thumbnails[0].url;
 
         var qtitle1 = data.data[1].metadata.title;
         var qtitle2 = data.data[2].metadata.title;
@@ -120,6 +144,10 @@
           video.autoplay = true;
         }
         videocounter++;
+        if(videocounter > 4)
+        {
+          videocounter = 0;
+        }
 
         console.log(videocounter)
         console.log(url);
